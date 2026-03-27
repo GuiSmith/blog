@@ -27,10 +27,18 @@ class Auth
 
     public function attempt(string $email, string $password)
     {
-        $user = User::where('email', $email)->first();
-        $password = User::where('password', $password)->first();
+        $users = User::where('email', $email)->get();
+        
+        // Checking if there's more than one user with the same e-mail
+        if($users->count() > 1){
+            $this->container->flash->addMessage('error', 'Multiple accoutns registered with the same e-mail. Please, contact Support team');
+            return false;
+        }
 
-        if (!$user || !$password) {
+        $user = $users->first();
+
+        // Checking password
+        if($user->count() == 0 || !password_verify($password,$user->password)){
             $this->container->flash->addMessage('error', 'Invalid credentials, try again!');
             return false;
         }
