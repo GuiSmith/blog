@@ -1,0 +1,10 @@
+<div class="flash-container">
+    {% for type, messages in flash.getMessages() %}
+        {% for message in messages %}
+            <div class="flash flash-{{ type }}">
+                <span>{{ message }}</span>
+                <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
