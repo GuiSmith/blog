@@ -8,4 +8,8 @@ class HomeController extends Controller {
         // return $response->write($this->container['hello']);
         return $this->container->view->render($response,'index.twig');
     }
+
+    public function avatar($request,$response){
+        return $this->container->view->render($response,'avatar.twig');
+    }
 };
