@@ -2,19 +2,26 @@
 
 {% block content %}
 <section class="articles">
-    <figure class="image is-128x128 image container">
-      <img class="is-rounded" src="">
-    </figure>
     <div class="column is-8 is-offset-2">
       <div class="card article">
         <div class="card-content">
-          <form action="" method="POST" enctype="multipart/form-data">             
+          <div class="has-text-centered">
+            <figure class="image is-128x128 image container is-inline-block">
+              {% if auth.user.avatar %}
+                <img src="/images/{{ auth.user.avatar }}">
+              {% else %}
+                <img class="is-rounded" src="https://via.placeholder.com/128x128?text=No+Avatar" alt="No Avatar">
+              {% endif %}
+            </figure>
+          </div>
+          
+          <form action="{{ path_for('auth.avatar') }}" method="POST" enctype="multipart/form-data">             
             <div class="field">
-              <label class="label">E-mail</label>
+              <label class="label">Selecione uma imagem para o avatar</label>
 
               <div class="file has-name is-boxed">
                   <label class="file-label">
-                    <input class="file-input" type="file" name="avatar"  accept="image/x-png,image/gif,image/jpeg">
+                    <input class="file-input" type="file" name="avatar" accept="image/jpeg,image/png,image/webp" required>
                     <span class="file-cta">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -25,16 +32,19 @@
                     </span>
                   </label>
                 </div>
+                <p class="help">Formatos aceitos: JPEG, PNG, WebP. Tamanho máximo: 2MB.</p>
             </div>
             <div class="field is-grouped">
               <div class="control">
                 <button type="submit" class="button is-medium is-link">Enviar Avatar</button>
+              </div>
+              <div class="control">
+                <a href="{{ path_for('home') }}" class="button is-medium">Cancelar</a>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-
   </section>
 {% endblock %}

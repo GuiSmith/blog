@@ -77,4 +77,31 @@ class AuthController extends Controller {
             return $response->withRedirect($this->container->router->pathFor('home'));
         }
     }
+
+    public function avatar($request, $response){
+        if($request->isGet()){
+            return $this->container->view->render($response,'avatar.twig');
+        }
+
+        // POST request - handle avatar upload
+        if (!isset($_FILES['avatar'])) {
+            $this->container->flash->addMessage('error', 'ERROR: No file selected.');
+            return $response->withRedirect($this->container->router->pathFor('user.avatar'));
+        }
+
+        try {
+            $filename = $this->container->mediaService->uploadAvatar($_FILES['avatar']);
+            
+            // Update user's avatar in database
+            $user = $this->container->auth->user();
+            $user->avatar = $filename;
+            $user->save();
+
+            $this->container->flash->addMessage('success', 'Avatar uploaded successfully!');
+        } catch (\Exception $e) {
+            $this->container->flash->addMessage('error', 'ERROR: ' . $e->getMessage());
+        }
+
+        return $response->withRedirect($this->container->router->pathFor('user.avatar'));
+    }
 };

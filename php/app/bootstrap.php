@@ -76,6 +76,14 @@ $container['PostController'] = function ($container){
     return new App\Controllers\PostController($container);
 };
 
+$container['mediaService'] = function ($container){
+    return new App\Services\MediaService();
+};
+
+$container['MediaController'] = function ($container){
+    return new App\Controllers\MediaController($container);
+};
+
 $app->add(new App\Middleware\MiddlewareErrors($container));
 
 require __DIR__ . '/routes.php';
