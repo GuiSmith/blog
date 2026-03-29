@@ -2,7 +2,7 @@
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="../">
-        <img src="{{ base_url() }}/images/logo.png" alt="Logo">
+        <img src="{{ base_url() }}/assets/logo.png" alt="Logo">
       </a>
       <span class="navbar-burger burger" data-target="navbarMenu">
         <span></span>
@@ -23,23 +23,23 @@
           Registrar
         </a>
         {% else %}
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              XXXXX
+        <a class="navbar-item" href="{{ path_for('post.create') }}">
+          Criar post
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Perfil
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{{ path_for('auth.avatar') }}">
+              Avatar
             </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="{{ path_for('post.create') }}">
-                Criar post
-              </a>
-              <a class="navbar-item" href="{{ path_for('user.avatar') }}">
-                Avatar
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item" href="{{ path_for('auth.logout') }}">
-                Sair
-              </a>
-            </div>
-          </div>    
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="{{ path_for('auth.logout') }}">
+              Sair
+            </a>
+          </div>
+        </div>    
         {% endif %}
       </div>
     </div>
