@@ -11,4 +11,6 @@ $app->group('/auth',function($app){
 
 $app->group('/post',function($app){
     $app->map(['GET','POST'],'/create','PostController:create')->setName('post.create');
+    $app->map(['GET','POST'],'/update','PostController:update')->setName('post.update');
+    $app->map(['DELETE'],'/delete','PostController:update')->setName('post.delete');
 });
